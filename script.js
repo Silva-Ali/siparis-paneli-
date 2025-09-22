@@ -1,6 +1,5 @@
 // --- MANUEL GİRİŞ BÖLÜMÜ ---
 
-// Portföyünüzdeki hisselerin lot, maliyet ve ANLIK FİYAT bilgilerini buraya girin.
 const portfoy = [
     { sembol: "SMARTG", lot: 8501, maliyet: 40.75, anlikFiyat: 30.80 },
     { sembol: "ARDYZ",  lot: 3568, maliyet: 36.04, anlikFiyat: 28.10 },
@@ -14,14 +13,32 @@ const ozluSozler = [
     { soz: "Piyasalar her zaman yanılabilir, ama sen ne kadar süre ayakta kalabilirsin?", yazar: "John Maynard Keynes" }
 ];
 
+// 'En Çok Düşenler' listesi güncellendi.
 const sahtePiyasaVerileri = {
-    yukselenler: [ { sembol: "TUPRS", degisim: "+5.67%" }, { sembol: "THYAO", degisim: "+4.12%" }, { sembol: "EREGL", degisim: "+3.80%" } ],
-    dusenler: [ { sembol: "SASA", degisim: "-3.21%" }, { sembol: "HEKTS", degisim: "-2.88%" }, { sembol: "KOZAL", degisim: "-1.95%" } ],
-    hacimliler: [ { sembol: "GARAN", hacim: "2.1 Milyar ₺" }, { sembol: "YKBNK", hacim: "1.8 Milyar ₺" }, { sembol: "ISCTR", hacim: "1.5 Milyar ₺" } ]
+    yukselenler: [
+        { sembol: "TUPRS", degisim: "+5.67%" },
+        { sembol: "THYAO", degisim: "+4.12%" },
+        { sembol: "EREGL", degisim: "+3.80%" },
+        { sembol: "ASELS", degisim: "+2.55%" },
+    ],
+    dusenler: [
+        { sembol: "KRDMD", degisim: "-2.50%" }, // SASA yerine KARDEMİR (KRDMD) eklendi
+        { sembol: "HEKTS", degisim: "-2.88%" },
+        { sembol: "KOZAL", degisim: "-1.95%" },
+        { sembol: "PETKM", degisim: "-1.15%" },
+    ],
+    hacimliler: [
+        { sembol: "GARAN", hacim: "2.1 Milyar ₺" },
+        { sembol: "YKBNK", hacim: "1.8 Milyar ₺" },
+        { sembol: "ISCTR", hacim: "1.5 Milyar ₺" },
+        { sembol: "AKBNK", hacim: "1.3 Milyar ₺" },
+    ]
 };
 
 
 // --- KODLAMA BÖLÜMÜ ---
+
+let portfolioChart = null;
 
 document.addEventListener("DOMContentLoaded", function() {
     portfoyuGuncelle();
@@ -38,6 +55,9 @@ function portfoyuGuncelle() {
     hisseListesiBody.innerHTML = ''; 
     let toplamPortfoyDegeri = 0;
     let toplamMaliyet = 0;
+    
+    const chartLabels = [];
+    const chartData = [];
 
     portfoy.forEach(hisse => {
         const toplamDeger = hisse.lot * hisse.anlikFiyat;
@@ -46,6 +66,10 @@ function portfoyuGuncelle() {
         const karZararYuzde = maliyetDegeri > 0 ? ((hisse.anlikFiyat - hisse.maliyet) / hisse.maliyet) * 100 : 0;
         toplamPortfoyDegeri += toplamDeger;
         toplamMaliyet += maliyetDegeri;
+
+        chartLabels.push(hisse.sembol);
+        chartData.push(toplamDeger);
+
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
             <td>${hisse.sembol}</td>
@@ -66,11 +90,60 @@ function portfoyuGuncelle() {
     toplamKarZararElem.textContent = `${formatCurrency(toplamKarZarar)} (${toplamKarZararYuzde.toFixed(2)}%)`;
     setElementColor(toplamKarZararElem, toplamKarZarar);
 
-    const birYillikArtisOrani = 0.40; // %40 Yıllık Hedef Artışı
+    const birYillikArtisOrani = 0.40;
     const hedefDeger = toplamPortfoyDegeri * (1 + birYillikArtisOrani);
     birYillikHedefElem.textContent = formatCurrency(hedefDeger);
 
     document.getElementById('son-guncelleme').textContent = new Date().toLocaleTimeString('tr-TR');
+
+    grafigiCiz(chartLabels, chartData);
+}
+
+function grafigiCiz(labels, data) {
+    const ctx = document.getElementById('portfolioChart').getContext('2d');
+
+    if(portfolioChart) {
+        portfolioChart.destroy();
+    }
+
+    portfolioChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Portföy Değeri',
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)',
+                    'rgba(255, 159, 64, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        color: '#E0E0E0'
+                    }
+                }
+            }
+        }
+    });
 }
 
 function ozluSozGoster() {
