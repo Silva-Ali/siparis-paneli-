@@ -32,6 +32,8 @@ function portfoyuGuncelle() {
     const toplamDegerElem = document.getElementById('toplam-deger');
     const toplamKarZararElem = document.getElementById('toplam-kar-zarar');
     const birYillikHedefElem = document.getElementById('bir-yillik-hedef');
+    const bestPerformerElem = document.getElementById('best-performer');
+    const smallestPositionElem = document.getElementById('smallest-position');
     
     hisseListesiBody.innerHTML = ''; 
     let toplamPortfoyDegeri = 0;
@@ -39,25 +41,24 @@ function portfoyuGuncelle() {
     
     const chartLabels = [];
     const chartData = [];
+    const performanceData = []; // YENİ: Performans analizi için
 
     portfoy.forEach(hisse => {
         const toplamDeger = hisse.lot * hisse.anlikFiyat;
         const maliyetDegeri = hisse.lot * hisse.maliyet;
         const karZarar = toplamDeger - maliyetDegeri;
         const karZararYuzde = maliyetDegeri > 0 ? ((hisse.anlikFiyat - hisse.maliyet) / hisse.maliyet) * 100 : 0;
+        
         toplamPortfoyDegeri += toplamDeger;
         toplamMaliyet += maliyetDegeri;
-
         chartLabels.push(hisse.sembol);
         chartData.push(toplamDeger);
+        performanceData.push({ sembol: hisse.sembol, yuzde: karZararYuzde, deger: toplamDeger });
 
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
-            <td>${hisse.sembol}</td>
-            <td>${hisse.lot.toLocaleString('tr-TR')}</td>
-            <td>${formatCurrency(hisse.maliyet)}</td>
-            <td>${formatCurrency(hisse.anlikFiyat)}</td>
-            <td>${formatCurrency(toplamDeger)}</td>
+            <td>${hisse.sembol}</td><td>${hisse.lot.toLocaleString('tr-TR')}</td><td>${formatCurrency(hisse.maliyet)}</td>
+            <td>${formatCurrency(hisse.anlikFiyat)}</td><td>${formatCurrency(toplamDeger)}</td>
             <td class="${karZarar >= 0 ? 'positive' : 'negative'}">${formatCurrency(karZarar)}</td>
             <td class="${karZarar >= 0 ? 'positive' : 'negative'}">${karZararYuzde.toFixed(2)}%</td>
         `;
@@ -75,9 +76,17 @@ function portfoyuGuncelle() {
     const hedefDeger = toplamPortfoyDegeri * (1 + birYillikArtisOrani);
     birYillikHedefElem.textContent = formatCurrency(hedefDeger);
 
-    document.getElementById('son-guncelleme').textContent = new Date().toLocaleTimeString('tr-TR');
+    // YENİ: Performans Analizi
+    if (performanceData.length > 0) {
+        const best = performanceData.reduce((prev, current) => (prev.yuzde > current.yuzde) ? prev : current);
+        const smallest = performanceData.reduce((prev, current) => (prev.deger < current.deger) ? prev : current);
+        bestPerformerElem.innerHTML = `${best.sembol} <span class="positive">${best.yuzde.toFixed(2)}%</span>`;
+        smallestPositionElem.innerHTML = `${smallest.sembol} <span class="secondary-text">${formatCurrency(smallest.deger)}</span>`;
+    }
 
+    document.getElementById('son-guncelleme').textContent = new Date().toLocaleTimeString('tr-TR');
     grafigiCiz(chartLabels, chartData);
+    interaktifVurgulamaEkle();
 }
 
 function grafigiCiz(labels, data) {
@@ -86,11 +95,36 @@ function grafigiCiz(labels, data) {
     portfolioChart = new Chart(ctx, {
         type: 'doughnut', data: { labels: labels, datasets: [{
             label: 'Portföy Değeri', data: data,
-            backgroundColor: ['rgba(255, 99, 132, 0.7)','rgba(54, 162, 235, 0.7)','rgba(255, 206, 86, 0.7)','rgba(75, 192, 192, 0.7)','rgba(153, 102, 255, 0.7)','rgba(255, 159, 64, 0.7)'],
-            borderColor: ['rgba(255, 99, 132, 1)','rgba(54, 162, 235, 1)','rgba(255, 206, 86, 1)','rgba(75, 192, 192, 1)','rgba(153, 102, 255, 1)','rgba(255, 159, 64, 1)'],
+            backgroundColor: ['#FF6384','#36A2EB','#FFCE56','#4BC0C0','#9966FF','#FF9F40'],
             borderWidth: 1
         }]},
-        options: { responsive: true, plugins: { legend: { position: 'top', labels: { color: '#E0E0E0' }}}}
+        options: { responsive: true,
+            onHover: handleChartHover, // YENİ: Vurgulama için
+            plugins: { legend: { position: 'top', labels: { color: '#E0E0E0' }}}}
+    });
+}
+
+// YENİ: İnteraktif Vurgulama Fonksiyonları
+function handleChartHover(event, elements) {
+    document.querySelectorAll('#hisse-listesi tr').forEach(row => row.classList.remove('highlight'));
+    if (elements.length > 0) {
+        const index = elements[0].index;
+        const row = document.querySelector(`#hisse-listesi tr:nth-child(${index + 1})`);
+        if (row) row.classList.add('highlight');
+    }
+}
+
+function interaktifVurgulamaEkle() {
+    const rows = document.querySelectorAll('#hisse-listesi tr');
+    rows.forEach((row, index) => {
+        row.addEventListener('mouseover', () => {
+            portfolioChart.setActiveElements([{ datasetIndex: 0, index: index }]);
+            portfolioChart.update();
+        });
+        row.addEventListener('mouseout', () => {
+            portfolioChart.setActiveElements([]);
+            portfolioChart.update();
+        });
     });
 }
 
