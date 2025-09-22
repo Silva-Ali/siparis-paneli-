@@ -9,13 +9,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
 <body>
+    <div id="particles-js"></div>
     <div class="container">
         <div class="ticker-wrap">
             <div class="ticker-move" id="ticker-move"></div>
         </div>
         <header>
             <div class="header-top">
-                <div class="profile"><img src="profil.jpg" alt="Profil Fotoğrafı"><h1 class="profile-name">Borsa Portföyü</h1></div>
+                <div class="profile"><img src="profil.jpg" alt="Ali Karapıçak profil fotoğrafı"><h1 class="profile-name">Borsa Portföyü</h1></div>
+                <button id="settings-btn" class="settings-btn" aria-label="Ayarlar">⚙️</button>
             </div>
             <div class="summary">
                 <div class="summary-item"><h2>Toplam Değer</h2><p id="toplam-deger">Hesaplanıyor...</p></div>
@@ -36,6 +38,10 @@
                     </thead>
                     <tbody id="hisse-listesi"></tbody>
                 </table>
+                 <section class="news-panel">
+                    <h2>Piyasa Haberleri</h2>
+                    <ul id="news-list"></ul>
+                </section>
             </main>
             <aside class="market-data-panel">
                 <div class="chart-container"><h2>Portföy Dağılımı</h2><canvas id="portfolioChart"></canvas></div>
@@ -46,12 +52,8 @@
             </aside>
         </div>
         <div class="bottom-content">
-            <section class="news-panel">
-                <h2>Piyasa Haberleri</h2>
-                <ul id="news-list"></ul>
-            </section>
             <section class="analysis-panel">
-                <h2>Anlık Taraf Analizi (Canlı Veri)</h2>
+                <h2>Anlık Takas Analizi (Canlı Veri)</h2>
                 <div class="analysis-container">
                     <div class="analysis-side"><h3>Alıcı Kurumlar</h3><ul id="buyers-list"></ul></div>
                     <div class="analysis-side"><h3>Satıcı Kurumlar</h3><ul id="sellers-list"></ul></div>
@@ -59,8 +61,25 @@
             </section>
         </div>
         <div class="quote-container"><p id="quote-text"></p><p id="quote-author"></p></div>
-        <footer><p>Son Güncelleme: <span id="son-guncelleme">--:--:--</span></p></footer>
+        <div class="ticker-wrap secondary-ticker">
+            <div class="ticker-move" id="secondary-ticker-move"></div>
+        </div>
+        <footer>
+            <div class="signature">Broker Ali Karapıçak</div>
+            <p>Son Güncelleme: <span id="son-guncelleme"></span></p>
+        </footer>
     </div>
+    <div id="settings-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button id="close-modal-btn" class="close-btn" aria-label="Kapat">&times;</button>
+            <h2>Ayarlar</h2>
+            <div class="setting-item">
+                <label for="theme-toggle">Site Teması</label>
+                <button id="theme-toggle">Açık/Koyu Tema Değiştir</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
