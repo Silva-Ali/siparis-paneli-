@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portföy Panosu</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -47,12 +48,16 @@
                             <th>K/Z (%)</th>
                         </tr>
                     </thead>
-                    <tbody id="hisse-listesi">
-                        </tbody>
+                    <tbody id="hisse-listesi"></tbody>
                 </table>
             </main>
 
             <aside class="market-data-panel">
+                <div class="chart-container">
+                    <h2>Portföy Dağılımı</h2>
+                    <canvas id="portfolioChart"></canvas>
+                </div>
+
                 <h2>Piyasa Verileri</h2>
                 <div class="market-category">
                     <h3>En Çok Yükselenler</h3>
