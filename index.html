@@ -10,6 +10,9 @@
 </head>
 <body>
     <div class="container">
+        <div class="ticker-wrap">
+            <div class="ticker-move" id="ticker-move"></div>
+        </div>
         <header>
             <div class="header-top">
                 <div class="profile"><img src="profil.jpg" alt="Profil Fotoğrafı"><h1 class="profile-name">Borsa Portföyü</h1></div>
@@ -18,8 +21,8 @@
                 <div class="summary-item"><h2>Toplam Değer</h2><p id="toplam-deger">Hesaplanıyor...</p></div>
                 <div class="summary-item"><h2>Toplam Kâr/Zarar</h2><p id="toplam-kar-zarar">Hesaplanıyor...</p></div>
                 <div class="summary-item"><h2>1 Yıllık Hedef (%40 Artış)</h2><p id="bir-yillik-hedef" class="hedef-deger">Hesaplanıyor...</p></div>
-                <div class="summary-item"><h2>Yıldız Performans</h2><p id="best-performer" class="performance-metric">Hesaplanıyor...</p></div>
-                <div class="summary-item"><h2>Büyüme Potansiyeli</h2><p id="smallest-position" class="performance-metric">Hesaplanıyor...</p></div>
+                <div class="summary-item"><h2>Geleceğin Yıldızı (1Y Fiyat Hedefi)</h2><p id="best-performer" class="performance-metric">Hesaplanıyor...</p></div>
+                <div class="summary-item"><h2>Gizli Hazine (Dengeleme Hedefi)</h2><p id="smallest-position" class="performance-metric">Hesaplanıyor...</p></div>
             </div>
         </header>
         <div class="main-content">
@@ -28,7 +31,7 @@
                 <table id="hisse-tablosu">
                     <thead>
                         <tr>
-                            <th>Hisse</th><th>Lot</th><th>Maliyet</th><th>Anlık Fiyat</th><th>Toplam Değer</th><th>Kâr/Zarar</th><th>K/Z (%)</th>
+                            <th>Hisse</th><th>Ağırlık</th><th>Lot</th><th>Maliyet</th><th>Anlık Fiyat</th><th>Toplam Değer</th><th>Kâr/Zarar</th><th>K/Z (%)</th>
                         </tr>
                     </thead>
                     <tbody id="hisse-listesi"></tbody>
@@ -42,7 +45,20 @@
                 <div class="market-category"><h3>Hacmi En Yüksekler</h3><ul id="top-volume-list"></ul></div>
             </aside>
         </div>
-        <div class="quote-container"><p id="quote-text" class="quote-text"></p><p id="quote-author" class="quote-author"></p></div>
+        <div class="bottom-content">
+            <section class="news-panel">
+                <h2>Piyasa Haberleri</h2>
+                <ul id="news-list"></ul>
+            </section>
+            <section class="analysis-panel">
+                <h2>Anlık Taraf Analizi (Simülasyon)</h2>
+                <div class="analysis-container">
+                    <div class="analysis-side"><h3>Alıcı Kurumlar</h3><ul id="buyers-list"></ul></div>
+                    <div class="analysis-side"><h3>Satıcı Kurumlar</h3><ul id="sellers-list"></ul></div>
+                </div>
+            </section>
+        </div>
+        <div class="quote-container"><p id="quote-text"></p><p id="quote-author"></p></div>
         <footer><p>Son Güncelleme: <span id="son-guncelleme">--:--:--</span></p></footer>
     </div>
     <script src="script.js"></script>
