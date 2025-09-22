@@ -2,10 +2,11 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portföy Panosu</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
 <body>
     <div class="container">
@@ -21,20 +22,13 @@
                 <div class="summary-item"><h2>Büyüme Potansiyeli</h2><p id="smallest-position" class="performance-metric">Hesaplanıyor...</p></div>
             </div>
         </header>
-
         <div class="main-content">
             <main class="portfolio-section">
                 <h2>Varlıklarım</h2>
                 <table id="hisse-tablosu">
                     <thead>
                         <tr>
-                            <th>Hisse</th>
-                            <th>Lot</th>
-                            <th>Maliyet</th>
-                            <th>Anlık Fiyat</th>
-                            <th>Toplam Değer</th>
-                            <th>Kâr/Zarar</th>
-                            <th>K/Z (%)</th>
+                            <th>Hisse</th><th>Lot</th><th>Maliyet</th><th>Anlık Fiyat</th><th>Toplam Değer</th><th>Kâr/Zarar</th><th>K/Z (%)</th>
                         </tr>
                     </thead>
                     <tbody id="hisse-listesi"></tbody>
