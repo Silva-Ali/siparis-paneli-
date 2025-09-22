@@ -12,14 +12,6 @@ header .profile .profile-name{font-size:1.5em;font-weight:500;margin:0;}
 .summary-item h2{font-size:1em;color:var(--secondary-text);margin:0 0 10px 0;font-weight:400;}
 .summary-item p{font-size:1.75em;font-weight:700;margin:0;}
 .hedef-deger{color:var(--gold);}
-.management-panel{background-color:var(--bg-color);padding:20px;border-radius:8px;margin-bottom:30px;border:1px solid var(--border-color);}
-.management-panel h2{margin-top:0;border-bottom:1px solid var(--border-color);padding-bottom:10px;}
-#hisse-form{display:flex;flex-wrap:wrap;gap:10px;}
-#hisse-form input{flex:1;min-width:150px;padding:10px;border-radius:4px;border:1px solid var(--border-color);background-color:var(--surface-color);color:var(--primary-text);font-size:1em;}
-#hisse-form button{padding:10px 20px;border:none;border-radius:4px;background-color:var(--blue);color:#fff;font-weight:700;cursor:pointer;transition:background-color .2s ease;}
-#hisse-form button:hover{background-color:#0288D1;}
-#hisse-form .cancel-button{background-color:var(--secondary-text);}
-#hisse-form .cancel-button:hover{background-color:#888;}
 .main-content{display:flex;gap:30px;margin-top:20px;}
 .portfolio-section{flex:3;}
 .market-data-panel{flex:1;background-color:var(--bg-color);padding:20px;border-radius:8px;border:1px solid var(--border-color);}
@@ -36,9 +28,6 @@ th,td{padding:12px 16px;border-bottom:1px solid var(--border-color);text-align:l
 th{color:var(--secondary-text);font-weight:500;}
 tbody tr:nth-child(even){background-color:#181818;}
 tbody tr:hover{background-color:#2a2a2a;}
-td .actions button{margin-right:5px;padding:5px 8px;border:none;border-radius:4px;cursor:pointer;background:none;font-size:.9em;}
-td .actions .edit-btn{color:var(--blue);}
-td .actions .delete-btn{color:var(--red);}
 .positive{color:var(--green);font-weight:500;}
 .negative{color:var(--red);font-weight:500;}
 #toplam-deger{color:var(--blue);}
