@@ -8,30 +8,30 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-
     <div class="container">
         <header>
             <div class="header-top">
-                <div class="profile">
-                    <img src="profil.jpg" alt="Profil Fotoğrafı">
-                    <h1 class="profile-name">Borsa Portföyü</h1>
-                </div>
+                <div class="profile"><img src="profil.jpg" alt="Profil Fotoğrafı"><h1 class="profile-name">Borsa Portföyü</h1></div>
             </div>
             <div class="summary">
-                <div class="summary-item">
-                    <h2>Toplam Değer</h2>
-                    <p id="toplam-deger">Hesaplanıyor...</p>
-                </div>
-                <div class="summary-item">
-                    <h2>Toplam Kâr/Zarar</h2>
-                    <p id="toplam-kar-zarar">Hesaplanıyor...</p>
-                </div>
-                <div class="summary-item">
-                    <h2>1 Yıllık Hedef (%40 Artış)</h2>
-                    <p id="bir-yillik-hedef" class="hedef-deger">Hesaplanıyor...</p>
-                </div>
+                <div class="summary-item"><h2>Toplam Değer</h2><p id="toplam-deger">₺0,00</p></div>
+                <div class="summary-item"><h2>Toplam Kâr/Zarar</h2><p id="toplam-kar-zarar">₺0,00</p></div>
+                <div class="summary-item"><h2>1 Yıllık Hedef (%40 Artış)</h2><p id="bir-yillik-hedef" class="hedef-deger">₺0,00</p></div>
             </div>
         </header>
+
+        <section class="management-panel">
+            <h2>Portföy Yönetimi</h2>
+            <form id="hisse-form">
+                <input type="hidden" id="edit-index">
+                <input type="text" id="sembol" placeholder="Hisse Sembolü (Örn: SASA)" required>
+                <input type="number" id="lot" placeholder="Lot Adedi" step="1" required>
+                <input type="number" id="maliyet" placeholder="Ortalama Maliyet (₺)" step="0.01" required>
+                <input type="number" id="anlikFiyat" placeholder="Anlık Fiyat (₺)" step="0.01" required>
+                <button type="submit" id="form-button">Hisse Ekle</button>
+                <button type="button" id="cancel-button" class="cancel-button" style="display: none;">İptal</button>
+            </form>
+        </section>
 
         <div class="main-content">
             <main class="portfolio-section">
@@ -46,44 +46,12 @@
                             <th>Toplam Değer</th>
                             <th>Kâr/Zarar</th>
                             <th>K/Z (%)</th>
-                        </tr>
+                            <th>İşlemler</th> </tr>
                     </thead>
                     <tbody id="hisse-listesi"></tbody>
                 </table>
             </main>
-
             <aside class="market-data-panel">
-                <div class="chart-container">
-                    <h2>Portföy Dağılımı</h2>
-                    <canvas id="portfolioChart"></canvas>
-                </div>
-
+                <div class="chart-container"><h2>Portföy Dağılımı</h2><canvas id="portfolioChart"></canvas></div>
                 <h2>Piyasa Verileri</h2>
-                <div class="market-category">
-                    <h3>En Çok Yükselenler</h3>
-                    <ul id="top-gainers-list"></ul>
-                </div>
-                <div class="market-category">
-                    <h3>En Çok Düşenler</h3>
-                    <ul id="top-losers-list"></ul>
-                </div>
-                <div class="market-category">
-                    <h3>Hacmi En Yüksekler</h3>
-                    <ul id="top-volume-list"></ul>
-                </div>
-            </aside>
-        </div>
-
-        <div class="quote-container">
-            <p id="quote-text" class="quote-text"></p>
-            <p id="quote-author" class="quote-author"></p>
-        </div>
-
-        <footer>
-            <p>Son Güncelleme: <span id="son-guncelleme">--:--:--</span></p>
-        </footer>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+                <div class="market-category"><h3>En Çok Yükselenler
