@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portföy Panosu</title>
+    <title>Portföy Panosu - Ali Karapıçak</title>
+    <meta name="author" content="Ali Karapıçak">
+    <meta name="description" content="Kişisel Borsa Portföyü Takip Paneli. Anlık portföy değeri, kar/zarar durumu ve piyasa analizleri.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://SİZİN-ADİNİZ.github.io/portfoy-sitem/">
+    <meta property="og:title" content="Portföy Panosu - Ali Karapıçak">
+    <meta property="og:description" content="Kişisel Borsa Portföyü Takip Paneli.">
+    <meta property="og:image" content="https://SİZİN-ADİNİZ.github.io/portfoy-sitem/profil.jpg">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
@@ -11,9 +19,7 @@
 <body>
     <div id="particles-js"></div>
     <div class="container">
-        <div class="ticker-wrap">
-            <div class="ticker-move" id="ticker-move"></div>
-        </div>
+        <div class="ticker-wrap"><div class="ticker-move" id="ticker-move"></div></div>
         <header>
             <div class="header-top">
                 <div class="profile"><img src="profil.jpg" alt="Ali Karapıçak profil fotoğrafı"><h1 class="profile-name">Borsa Portföyü</h1></div>
@@ -29,21 +35,29 @@
         </header>
         <div class="main-content">
             <main class="portfolio-section">
-                <h2>Varlıklarım</h2>
-                <table id="hisse-tablosu">
-                    <thead>
-                        <tr>
-                            <th>Hisse</th><th>Ağırlık</th><th>Lot</th><th>Maliyet</th><th>Anlık Fiyat</th><th>Toplam Değer</th><th>Kâr/Zarar</th><th>K/Z (%)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="hisse-listesi"></tbody>
-                </table>
-                 <section class="news-panel">
-                    <h2>Piyasa Haberleri</h2>
+                <div class="main-header">
+                    <h2 id="varliklarim-basligi">Varlıklarım</h2>
+                    <div class="portfolio-tabs">
+                        <button id="user-portfolio-btn" class="tab-btn active" aria-selected="true">Benim Portföyüm</button>
+                        <button id="example-portfolio-btn" class="tab-btn" aria-selected="false">Örnek Portföy</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="hisse-tablosu" aria-labelledby="varliklarim-basligi">
+                        <thead>
+                            <tr>
+                                <th>Hisse</th><th>Ağırlık</th><th>Lot</th><th>Maliyet</th><th>Anlık Fiyat</th><th>Toplam Değer</th><th>Kâr/Zarar</th><th>K/Z (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hisse-listesi"></tbody>
+                    </table>
+                </div>
+                 <section class="news-panel" aria-labelledby="haberler-basligi" aria-live="polite">
+                    <h2 id="haberler-basligi">Piyasa Haberleri</h2>
                     <ul id="news-list"></ul>
                 </section>
             </main>
-            <aside class="market-data-panel">
+            <aside class="market-data-panel" aria-label="Piyasa Verileri">
                 <div class="chart-container"><h2>Portföy Dağılımı</h2><canvas id="portfolioChart"></canvas></div>
                 <h2>Piyasa Verileri</h2>
                 <div class="market-category"><h3>En Çok Yükselenler</h3><ul id="top-gainers-list"></ul></div>
@@ -52,16 +66,20 @@
             </aside>
         </div>
         <div class="bottom-content">
-            <section class="analysis-panel">
-                <h2>Anlık Takas Analizi (Canlı Veri)</h2>
-                <div class="analysis-container">
+            <section class="analysis-panel" id="comparison-panel" aria-labelledby="analiz-basligi">
+                <h2 id="analiz-basligi">Karşılaştırmalı Analiz</h2>
+                <div class="comparison-container"></div>
+            </section>
+            <section class="analysis-panel" aria-labelledby="takas-basligi">
+                <h2 id="takas-basligi">Anlık Takas Analizi (Canlı Veri)</h2>
+                <div class="analysis-container" aria-live="polite">
                     <div class="analysis-side"><h3>Alıcı Kurumlar</h3><ul id="buyers-list"></ul></div>
                     <div class="analysis-side"><h3>Satıcı Kurumlar</h3><ul id="sellers-list"></ul></div>
                 </div>
             </section>
         </div>
         <div class="quote-container"><p id="quote-text"></p><p id="quote-author"></p></div>
-        <div class="ticker-wrap secondary-ticker">
+        <div class="ticker-wrap secondary-ticker" aria-live="polite">
             <div class="ticker-move" id="secondary-ticker-move"></div>
         </div>
         <footer>
@@ -69,10 +87,10 @@
             <p>Son Güncelleme: <span id="son-guncelleme"></span></p>
         </footer>
     </div>
-    <div id="settings-modal" class="modal-overlay" style="display: none;">
+    <div id="settings-modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="modal-content">
             <button id="close-modal-btn" class="close-btn" aria-label="Kapat">&times;</button>
-            <h2>Ayarlar</h2>
+            <h2 id="modal-title">Ayarlar</h2>
             <div class="setting-item">
                 <label for="theme-toggle">Site Teması</label>
                 <button id="theme-toggle">Açık/Koyu Tema Değiştir</button>
