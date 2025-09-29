@@ -8,16 +8,19 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
-<body>
+<body class="dark-theme">
     <div id="particles-js"></div>
     <div class="container">
         <div class="ticker-wrap">
-            <div class="ticker-move" id="ticker-move"></div>
+            <div class="ticker-move" id="ticker-move" role="marquee" aria-live="polite" aria-label="Güncel piyasa verileri"></div>
         </div>
         <header>
             <div class="header-top">
-                <div class="profile"><img src="profil.jpg" alt="Ali Karapıçak profil fotoğrafı"><h1 class="profile-name">Borsa Portföyü</h1></div>
-                <button id="settings-btn" class="settings-btn" aria-label="Ayarlar">⚙️</button>
+                <div class="profile"><img src="profil.jpg" alt="Ali Karapıçak profil fotoğrafı" onerror="this.onerror=null;this.src='https://via.placeholder.com/60x60.png?text=AK';"><h1 class="profile-name">Borsa Portföyü</h1></div>
+                <div class="header-actions">
+                    <button id="refresh-btn" class="icon-button" aria-label="Verileri yenile" title="Verileri yenile">⟳</button>
+                    <button id="settings-btn" class="icon-button" aria-label="Ayarlar" aria-haspopup="dialog" aria-expanded="false" aria-controls="settings-modal">⚙️</button>
+                </div>
             </div>
             <div class="summary">
                 <div class="summary-item"><h2>Toplam Değer</h2><p id="toplam-deger">Hesaplanıyor...</p></div>
@@ -26,6 +29,7 @@
                 <div class="summary-item"><h2>Geleceğin Yıldızı (1Y Fiyat Hedefi)</h2><p id="best-performer" class="performance-metric">Hesaplanıyor...</p></div>
                 <div class="summary-item"><h2>Gizli Hazine (Dengeleme Hedefi)</h2><p id="smallest-position" class="performance-metric">Hesaplanıyor...</p></div>
             </div>
+            <p id="data-status" class="visually-hidden" role="status" aria-live="polite"></p>
         </header>
         <div class="main-content">
             <main class="portfolio-section">
@@ -40,7 +44,7 @@
                 </table>
                  <section class="news-panel">
                     <h2>Piyasa Haberleri</h2>
-                    <ul id="news-list"></ul>
+                    <ul id="news-list" aria-live="polite" aria-atomic="false"></ul>
                 </section>
             </main>
             <aside class="market-data-panel">
@@ -55,27 +59,27 @@
             <section class="analysis-panel">
                 <h2>Anlık Takas Analizi (Canlı Veri)</h2>
                 <div class="analysis-container">
-                    <div class="analysis-side"><h3>Alıcı Kurumlar</h3><ul id="buyers-list"></ul></div>
-                    <div class="analysis-side"><h3>Satıcı Kurumlar</h3><ul id="sellers-list"></ul></div>
+                    <div class="analysis-side"><h3>Alıcı Kurumlar</h3><ul id="buyers-list" aria-live="polite" aria-atomic="true"></ul></div>
+                    <div class="analysis-side"><h3>Satıcı Kurumlar</h3><ul id="sellers-list" aria-live="polite" aria-atomic="true"></ul></div>
                 </div>
             </section>
         </div>
-        <div class="quote-container"><p id="quote-text"></p><p id="quote-author"></p></div>
+        <div class="quote-container"><p id="quote-text" aria-live="polite" aria-atomic="true"></p><p id="quote-author"></p></div>
         <div class="ticker-wrap secondary-ticker">
-            <div class="ticker-move" id="secondary-ticker-move"></div>
+            <div class="ticker-move" id="secondary-ticker-move" role="marquee" aria-live="polite" aria-label="Döviz ve değerli maden fiyatları"></div>
         </div>
         <footer>
             <div class="signature">Broker Ali Karapıçak</div>
             <p>Son Güncelleme: <span id="son-guncelleme"></span></p>
         </footer>
     </div>
-    <div id="settings-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content">
-            <button id="close-modal-btn" class="close-btn" aria-label="Kapat">&times;</button>
-            <h2>Ayarlar</h2>
+    <div id="settings-modal" class="modal-overlay" role="presentation" hidden aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="settings-title" tabindex="-1">
+            <button id="close-modal-btn" class="close-btn" aria-label="Kapat" data-modal-close>&times;</button>
+            <h2 id="settings-title">Ayarlar</h2>
             <div class="setting-item">
                 <label for="theme-toggle">Site Teması</label>
-                <button id="theme-toggle">Açık/Koyu Tema Değiştir</button>
+                <button id="theme-toggle" data-modal-initial-focus>Açık/Koyu Tema Değiştir</button>
             </div>
         </div>
     </div>

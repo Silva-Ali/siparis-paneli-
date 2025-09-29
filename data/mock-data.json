@@ -1,0 +1,59 @@
+{
+  "portfolio": [
+    { "sembol": "SMARTG", "lot": 8501, "maliyet": 40.75, "anlikFiyat": 30.8 },
+    { "sembol": "ARDYZ", "lot": 3568, "maliyet": 36.04, "anlikFiyat": 28.1 },
+    { "sembol": "KCAER", "lot": 5601, "maliyet": 14.77, "anlikFiyat": 14.63 },
+    { "sembol": "SASA", "lot": 11290, "maliyet": 3.32, "anlikFiyat": 4.2 }
+  ],
+  "quotes": [
+    { "soz": "Borsa, sabırsız olanın sabırlı olana para aktardığı bir mekanizmadır.", "yazar": "Warren Buffett" },
+    { "soz": "Ne zaman satacağını bilmeyen, ne zaman alacağını da bilemez.", "yazar": "André Kostolany" }
+  ],
+  "marketData": {
+    "yukselenler": [
+      { "sembol": "TUPRS", "degisim": "+5.67%" },
+      { "sembol": "THYAO", "degisim": "+4.12%" }
+    ],
+    "dusenler": [
+      { "sembol": "KRDMD", "degisim": "-2.50%" },
+      { "sembol": "HEKTS", "degisim": "-2.88%" }
+    ],
+    "hacimliler": [
+      { "sembol": "GARAN", "hacim": "2.1 Milyar ₺" }
+    ]
+  },
+  "news": [
+    {
+      "baslik": "Yenilenebilir Enerji Raporu: Güneş Panelleri Yatırımları Zirvede",
+      "ozet": "Uluslararası Enerji Ajansı'nın yayımladığı son rapora göre, artan enerji talebi ve teşvikler sayesinde güneş enerjisi santrallerine (GES) yapılan yatırımların rekor seviyeye ulaştığı belirtildi.",
+      "tarih": "22 Eylül 2025"
+    },
+    {
+      "baslik": "BIST 100 Günü Yükselişle Tamamladı",
+      "ozet": "Borsa İstanbul'da BIST 100 endeksi, günü %1,25 değer kazancıyla 9.150 puandan tamamladı...",
+      "tarih": "22 Eylül 2025"
+    },
+    {
+      "baslik": "Teknoloji Sektörü İçin Yeni Teşvik Paketi Yolda",
+      "ozet": "Sanayi ve Teknoloji Bakanlığı'nın, yerli yazılım üreticilerini destekleyecek yeni bir teşvik paketi üzerinde çalıştığı bildirildi...",
+      "tarih": "21 Eylül 2025"
+    }
+  ],
+  "brokers": [
+    "İŞ YATIRIM",
+    "BANK OF AMERICA",
+    "GARANTİ BBVA",
+    "YAPI KREDİ",
+    "AK YATIRIM",
+    "ÜNLÜ & CO",
+    "TEB YATIRIM",
+    "HALK YATIRIM",
+    "ODEA BANK",
+    "PHILLIPCAPITAL"
+  ],
+  "financialData": [
+    { "sembol": "GRAM ALTIN", "fiyat": "2.450,78 ₺", "degisim": "+0.25%", "sinif": "positive" },
+    { "sembol": "ONS ALTIN", "fiyat": "2.330,45 $", "degisim": "-0.15%", "sinif": "negative" },
+    { "sembol": "USD/TRY", "fiyat": "32,85 ₺", "degisim": "+0.05%", "sinif": "positive" }
+  ]
+}
